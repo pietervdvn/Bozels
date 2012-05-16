@@ -1,0 +1,37 @@
+Pieter Vander Vennet
+Studentennummer 01100337
+Eerste Bachelor Informatica 
+
+Toelichting programmeerproject BOZELS: Bottom up-bespreking
+-------------------------------------
+
+EvenSource is de supperklasse van elk model. Het bevat een (speciale) lijst met listeners,
+en gebruikt generics om de listeners te accepteren.
+Merk op dat de lijst zachte referenties gebruikt (WeakReference). (Zie SafeList.java). Ik vind niet dat het de taak is van de eventsource om een harde referentie naar een listener bij te houden, veel listeners zullen een andere referentie hebben in een ander object,
+ om hun voor garbage collection te beschermen.
+ Indien de view echter wél voor garbage collection beschermt wenst te worden door de 
+ eventsource/lijst/model, dan vraagt de view dit expliciet, met "addHardListener".
+
+
+Veel modellen gebruiken, als bouwstenen de valuewrappers. Dit zijn mini-modellen,
+ die een valuechanged afvuren als de waarde aangepast wordt.
+ Mogelijke listeners zijn de grotere hoofdmodellen.
+ 
+	Het voordeel van deze aanpak, is dat deze waarden onmiddelijk serializeerbaar zijn (naar XML),
+	en het werken met (speciale) tekstvelden eenvoudiger wordt: de valuewrapper wordt doorgegeven,
+	en het tekstveld past deze aan. Omdat de hoofdmodellen luisteren naar deze minimodellen, wordt
+	het event doorgegeven aan de relevante objecten, waardoor alles consistent blijft.
+	
+Belangrijkere modellen, die (onrechtsstreeks) XML-serializeerbaar zijn, implementeren propertieslist.
+Deze bevat drie methoden: één geeft een lijst met XMLables, (vaak valuewrappers), en een lijst
+	met andere propertieslists, om "submodellen" door te kunnen geven. 
+	(BV: GameSettingsModel heeft de eigenschappen (valuewrappers)"zwaartekracht", "tijd tussen twee frames", ...
+		en geeft in zijn properties "explosionSettings" door, wat het model is voor explosies.
+		Deze bevat bv de eigenschappen (valuewrappers) "kracht", "radius", "aantal rays", ...)
+	(En uiteraard een methode die de naam doorgeeft)
+	
+SuperModel is de top van deze hieärchie, en bevat (referenties naar) diverse andere modellen. 
+	
+Merk op dat u het aantal aangemaakte eventSources en Value's kunt zien in de GUI (tabblad extra gegevens)
+
+

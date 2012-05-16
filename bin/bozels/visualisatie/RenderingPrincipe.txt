@@ -1,0 +1,31 @@
+Pieter Vander Vennet
+Studentennummer 01100337
+Eerste Bachelor Informatica 
+
+Toelichting programmeerproject BOZELS: renderingprincipe
+-------------------------------------
+
+Het uittekenen gaat als volgt: er is één thread, de RenderingThread actief.
+	Hierin worden verschillende "BufferedPainters" geladen.
+	
+Een BufferedPainter is een Object dat verantwoordelijk is voor één enkele tekentaak,
+	bv. de achtergrond, de bozels, de katapult, ...
+	
+	Elke painter (kan) luisteren naar modellen, om te bepalen wanneer die opnieuw 
+	getekend moet worden. Als de bufferedpainter hertekent wilt worden, stuurt die een
+	"onSourceWantsToBeRepainted" uit.
+	
+	Het renderingthreadobject, die geabonneerd is op deze gebeurtenissen, pikt dit op en voegt de 
+	bufferedPainter toe aan een Set, en haalt de thread uit pauzestand (als die in pauze staat).
+	Daarna worden de bufferedPainters die in de rij staan (hoewel het een Set, en geen Queue is),
+	getekend.
+	
+	Als het tekenen faalt (bv een concurrentModificationException), dan zal het tekenen 
+	een volgende keer opnieuw geprobeerd worden.
+	
+	Als het tekenen succesvol voltooid wordt, dan zal de bufferedPainter een ander event uitsturen,
+	een "onImageReady". Deze geeft aan dat de afbeelding 
+	correct en volledig is, en kan worden gebruikt om op het scherm getoond te worden.
+	Het eigenlijke paneel moet dit signaal oppikken, en de reeds getekende inhoud kopiëren op het 
+	scherm.
+	

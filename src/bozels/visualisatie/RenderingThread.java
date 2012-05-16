@@ -62,8 +62,8 @@ public class RenderingThread implements BufferedPainterListener {
 			//move contents from toRepaint to toRep
 			toRep.addAll(toRepaint);
 			toRepaint.clear();
-		}
 
+		}
 		for (Iterator<BufferedPainter> iterator = toRep.iterator(); iterator
 				.hasNext();) {
 			BufferedPainter bp = iterator.next();
