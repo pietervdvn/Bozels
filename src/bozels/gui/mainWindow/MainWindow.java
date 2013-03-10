@@ -12,8 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import bozels.SafeList;
-import bozels.gui.BozelMenuBar;
 import bozels.gui.panels.MainSettingsEditorPanel;
+import bozels.gui.resourceModel.BozelMenuBar;
 import bozels.gui.resourceModel.ResourceTracker;
 import bozels.gui.resourceModel.ResourceTrackerListener;
 import bozels.gui.resourceModel.actionHub.ActionKey;

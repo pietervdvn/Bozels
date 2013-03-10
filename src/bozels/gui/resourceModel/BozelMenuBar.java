@@ -1,4 +1,4 @@
-package bozels.gui;
+package bozels.gui.resourceModel;
 
 
 import java.awt.event.ActionEvent;
@@ -17,7 +17,6 @@ import javax.swing.KeyStroke;
 
 import bozels.gui.actions.AutoAction;
 import bozels.gui.actions.BooleanValueSelectAction;
-import bozels.gui.resourceModel.ResourceTracker;
 import bozels.gui.resourceModel.actionHub.ActionHub;
 import bozels.gui.resourceModel.actionHub.ActionKey;
 import bozels.gui.resourceModel.localeConstant.LocaleConstant;
